@@ -1,18 +1,31 @@
 const express = require('express')
 const cors = require('cors')
-const app = express();
-const multer = require('multer')
+const morgan = require('morgan')
+const https = require('https')
+const path = require('path')
+const fs = require('fs')
+
+
+const app = express()
 
 app.use(cors())
-app.use(express.static('public'))
+app.use(morgan('dev'))
 
 app.get('/',(req,res)=>{
-    res.sendFile('/public/index.html')
+    res.send('Server Running!')
 })
 
-app.post('/image',(req,res) => {
-
+app.post('/sendPhoto',(req,res)=>{
+    console.log(req)
+    res.send('running')
 })
 
+keyServer = path.resolve(__dirname,'serveFiles','certificates','server.key')
+certServer = path.resolve(__dirname,'serveFiles','certificates','server.cert')
 
-app.listen(5500)
+https.createServer({
+    key:fs.readFileSync(keyServer),
+    cert:fs.readFileSync(certServer)
+},app).listen(3000,()=> {
+    console.log('Server Running!!')
+})
