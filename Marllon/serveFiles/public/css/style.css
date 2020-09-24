@@ -84,7 +84,7 @@ body{
     align-items: flex-end;
     flex-direction: column;
 }
-.controller canvas{
+.controller video{
     transition: all 0.6s;
     height: 300px;
     width:300px;
