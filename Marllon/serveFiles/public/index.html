@@ -3,8 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Acess Camera</title>
     <link rel="stylesheet" href="./css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
@@ -13,22 +12,26 @@
 </head>
 
 <body>
-    <div class="video-wrap">
-        <video id="video"  autoplay></video>
-        <span id="ErrorMsg"></span>
-    </div>
+    <div class="Fundo">
+        <h1>
+            Faça cadastro !
+        </h1>
+        <div class="cameras">
+            <div class="video-wrap">
+                <video id="video" autoplay></video>
+                <button class="botaoCapture" id="snap">Capture</button>
+                <span id="ErrorMsg"></span>
+            </div>
 
-    <div class="controller">
-        <button id="snap">Capture</button>
-        <img id="base64" >
-    </div>
+            <div class="controller">
+                
+                <img id="base64">
+            </div>
+            <canvas id="canvas"></canvas>
+        </div>
 
-
-    <canvas id="canvas"></canvas>
-
-    <script
-        src="https://unpkg.com/axios/dist/axios.min.js" defer></script>
-    <script src="./scripts/openCamera.js" defer></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js" defer></script>
+        <script src="./scripts/openCamera.js" defer></script>
 </body>
 
 </html>
