@@ -156,5 +156,13 @@ body{
     background-color: #485E5D;
 }
 .informacoes .infonomes h4{
+    width: 215px;
+    height: 100%;
+    line-height: 40px;
+    text-align: center;
     color: #D982DB;
+}
+.informacoes .infonomes h4:not(:last-child){
+    padding-right: 20px;
+    border-right: 4px solid black;
 }
