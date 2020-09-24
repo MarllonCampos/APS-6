@@ -26,12 +26,14 @@ startVideo();
 
 const context = canvas.getContext('2d')
 snap.addEventListener('click', function () {
-
+   
     context.font = "50px Roboto";
     let time = 1
     let contador = setInterval(() => {
-        canvas.style.transition = "none"
+        canvas.style.transition = "none";
         canvas.style.transform = "";
+        canvas.style.border = "10px double black";
+        canvas.style.borderRadius ="30px" 
         if (time > 3) {
             clearInterval(contador)
             return
@@ -44,9 +46,10 @@ snap.addEventListener('click', function () {
     }, 1000)
 
     setTimeout(async () => {
+        canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height)
         context.drawImage(video, 0, 0, width, height)
         setTimeout(() => {
-            canvas.style.transition = "all 0.8s"
+            canvas.style.transition = "all 0.4s"
             canvas.style.transform = "scaleX(-1)";
         }, 500)
         const canvasImage = document.getElementById('canvas').toDataURL("image/png").replace("image/jpg", "image/octet-stream");
