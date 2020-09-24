@@ -2,6 +2,11 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: Roboto, sans-serif;
+    font-weight: 400;
+}
+h1,h2,h3,h4,h5,h6{
+font-weight: bold;
 }
 
 html,body{
@@ -14,33 +19,75 @@ body{
     padding-left: 5px;
     height: 90%;
 }
-.cameras{
-    display: flex;
-    justify-content: space-between;
-    padding: 24px;
-    width: 860px;
-}
 .Fundo{
     display: flex;
     align-items: center;
     flex-direction: column;
+    justify-content: center;
     width: 100%;
     height: 100%;
 }
-
-canvas{
-    transition: all 0.6s;
+.Fundo .borda{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+    border: 10px double black;
+    border-radius: 30px;
+}
+.cameras{
+    margin-top: 20px;
+    border-width: 10px;
+    border-style: double;
+    border-radius: 30px;
+    display: flex;
+    justify-content: space-between;
+    padding: 40px;
+    width: 860px;
 }
 .video-wrap{
     display: flex;
     flex-direction: column;
 }
-.botaoCapture{
-    width: 100px;
-    background-color: #ffff00;
-}
-
-video {
+.video-wrap video{
     -webkit-transform: scaleX(-1);
     transform: scaleX(-1);
+    height: 300px;
 }
+.video-wrap h4{
+    margin-top: 10px;
+}
+.video-wrap .botaoCapture{
+    width: 100px;
+    margin-top: 10px;
+    background-color: #ffff00;
+    border:  4px solid black;
+    border-radius: 10px;
+    font-size: 20px;
+    cursor: pointer;
+}
+.video-wrap .botaoCapture:hover{
+    box-shadow: 0px 6px 4px 0px rgba(0, 0, 0, 0.3);
+}
+.controller{
+    display: flex;
+    align-items: flex-end;
+    flex-direction: column;
+}
+canvas{
+    transition: all 0.6s;
+}
+.controller .botaoLogin{
+    width: 100px;
+    margin-top: 39px;
+    background-color: #ffff00;
+    border:  4px solid black;
+    border-radius: 10px;
+    font-size: 20px;
+    cursor: pointer;
+}
+.controller .botaoLogin:hover{
+    box-shadow: 0px 6px 4px 0px rgba(0, 0, 0, 0.3);
+}
+
+

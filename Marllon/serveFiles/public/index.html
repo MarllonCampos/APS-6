@@ -5,32 +5,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Acess Camera</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
 
 
 </head>
 
 <body>
     <div class="Fundo">
-        <h1>
-            Faça cadastro !
-        </h1>
-        <div class="cameras">
-            <div class="video-wrap">
-                <video id="video" autoplay></video>
-                <button class="botaoCapture" id="snap">Capture</button>
-                <span id="ErrorMsg"></span>
-            </div>
-
-            <div class="controller">     
-                <canvas id="canvas"></canvas>
-                <img id="base64">
+        <div class="borda">
+            <h1>
+                Faça login agora no novo reconhecimento facial!
+            </h1>
+            <div class="cameras">
+                <div class="video-wrap">
+                    <video id="video" autoplay></video>
+                    <h4>É cadastrado? <a href="./cadastramento.html">Cadastre-se aqui!</a></h4>
+                    <button class="botaoCapture" id="snap">Login</button>
+                    <span id="ErrorMsg"></span>
+                </div>
+                <div class="controller">
+                    <canvas id="canvas"></canvas>
+                    <button class="botaoLogin" id="snap">Confirme</button>
+                    <img id="base64">
+                </div>
             </div>
         </div>
-
-        <script src="https://unpkg.com/axios/dist/axios.min.js" defer></script>
-        <script src="./scripts/openCamera.js" defer></script>
+    </div>
+    <script src="https://unpkg.com/axios/dist/axios.min.js" defer></script>
+    <script src="./scripts/openCamera.js" defer></script>
 </body>
 
 </html>
