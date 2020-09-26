@@ -89,6 +89,11 @@ body{
     height: 300px;
     width:300px;
 }
+.controller input{
+    margin-top: 10px;
+    width: 300px;
+    padding-left: 5px;
+}
 .controller .botaoConfirme{
     margin-top: 39px;
 }
