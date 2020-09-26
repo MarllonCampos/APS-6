@@ -19,7 +19,7 @@ body{
     padding-left: 5px;
     height: 90%;
 }
-.botoes{
+.botoesCadastramento{
     width: 100px;
     margin-top: 10px;
     background-color: #A9DEDA;
@@ -28,7 +28,7 @@ body{
     font-size: 20px;
     cursor: pointer;
 }
-.botoes:hover{
+.botoesCadastramento:hover{
     box-shadow: 0px 6px 4px 0px rgba(0, 0, 0, 0.3);
 }
 .Fundo{
@@ -84,7 +84,7 @@ body{
     align-items: flex-end;
     flex-direction: column;
 }
-.controller canvas{
+.controller video{
     transition: all 0.6s;
     height: 300px;
     width:300px;
@@ -93,7 +93,4 @@ body{
     margin-top: 10px;
     width: 300px;
     padding-left: 5px;
-}
-.controller .botaoConfirme{
-    margin-top: 39px;
 }
