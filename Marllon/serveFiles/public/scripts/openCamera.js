@@ -1,23 +1,12 @@
-const errorMsgElement = document.getElementById('ErrorMsg');
-const base64 = document.getElementById('base64')
+let picture = document.getElementById('picture') || document.getElementById('record');
 const configPadrao = {
-    audio: false,
     video: {
-        facingMode: "user",
-        width: { max: 1920 },
-        height: { max: 1080 }
+        width: 300 ,
+        height: 300
     }
 }
 
-if (navigator.mediaDevices === undefined) {// Para navegadores mais antigos
-
-} else {
-    navigator.mediaDevices.enumerateDevices() // Para novos navegadores
-        .then(devices => { })
-        .catch(err => {
-            console.log(err.name, err.message);
-        })
-}
+const errorMsgElement = document.querySelector('#ErrorMsg')
 
 navigator.mediaDevices.getUserMedia(configPadrao)
     .then(function (mediaStreamObj) {
@@ -32,48 +21,127 @@ navigator.mediaDevices.getUserMedia(configPadrao)
             // Mostra o que esta gravando 
             video.play();
         }
-
-        let snap = document.getElementById('record');
-        let videoDisplay = document.getElementById('videoDisplay');
-        let mediaRecorder = new MediaRecorder(mediaStreamObj);
-        let chunks = [];
+        picture.addEventListener('click', takePicture)
 
 
-        snap.addEventListener('click', (ev) => {
-            setTimeout(() => {
-                mediaRecorder.stop();
-            }, 8200)
-            mediaRecorder.start();
-
-        })
-
-        mediaRecorder.ondataavailable = function (ev) {
-            chunks.push(ev.data)
-        }
-
-        mediaRecorder.onstop = (ev) => {
-            let blob = new Blob(chunks, { 'type': 'video/mp4' })
-            chunks = []
-            console.log(blob)
-            let videoURL = window.URL.createObjectURL(blob)
-            console.log("video ",videoURL)
-            convertToFormData(videoURL)
-            videoDisplay.src = videoURL
-        }
 
     }).catch(function (err) {
-        console.log(err.name, err.message);
+        errorMsgElement.innerHTML = `Ocorreu o seguinte erro: ${err.name, err.message}`
     })
 
+function takePicture() {
+    const {video: {width,height}} = configPadrao
+    const base64 = document.getElementById('base64')
+    let pictureDisplay = document.getElementById('pictureDisplay');
+    const context = pictureDisplay.getContext('2d')
 
-function convertToFormData(video){
-    let formData = new FormData();
-    formData.append('file', video);
-    console.log(formData)
+    console.log(pictureDisplay, context)
+    context.font = "50px Roboto";
+    let time = 1
+    let contador = setInterval(() => {
+        pictureDisplay.style.transition = "none";
+        pictureDisplay.style.transform = "";
+        pictureDisplay.style.border = "10px double black";
+        pictureDisplay.style.borderRadius = "30px"
+        if (time > 3) {
+            clearInterval(contador)
+            return
+        }
+        pictureDisplay.getContext('2d').clearRect(0, 0, pictureDisplay.width, pictureDisplay.height)
+
+        context.fillText(time, 130, 90);
+        time++
+
+    }, 1000)
+
+    setTimeout(async () => {
+        pictureDisplay.getContext('2d').clearRect(0, 0, pictureDisplay.width, pictureDisplay.height)
+        context.drawImage(video, 0, 0, 300, 150)
+        setTimeout(() => {
+            pictureDisplay.style.transition = "all 0.4s"
+            pictureDisplay.style.transform = "scaleX(-1)";
+        }, 500)
+        const canvasImage = document.getElementById('pictureDisplay').toDataURL("image/png").replace("image/jpg", "image/octet-stream");
+
+        console.log(canvasImage)
+    }, 3500)
+
+
+
+
+
+    function _imageEncode(arrayBuffer) {
+        let u8 = new Uint8Array(arrayBuffer)
+        let b64encoded = btoa([].reduce.call(new Uint8Array(arrayBuffer), function (p, c) { return p + String.fromCharCode(c) }, ''))
+        let mimetype = "image/jpeg"
+        return "data:" + mimetype + ";base64," + b64encoded
+    }
+
+
+    async function getTouch() {
+        try {
+
+            const response = await axios.get('http://localhost:5500/images/touch.jpeg', { responseType: "arraybuffer" })
+            let image = _imageEncode(response.data);
+            base64.src = image
+        } catch (e) {
+            console.log(e);
+        }
+    }
+    // getTouch();
+
+
+
 }
 
-function sendVideo(video){
-    axios.post('https://localhost:3000/sendVideo',{
-        name:"Marllon"
-    })
+
+function recordVideo() {
+
+    
+
+            let picture = document.getElementById('record');
+            let videoDisplay = document.getElementById('videoDisplay');
+            let mediaRecorder = new MediaRecorder(mediaStreamObj);
+            let chunks = [];
+
+
+            picture.addEventListener('click', (ev) => {
+                setTimeout(() => {
+                    mediaRecorder.stop();
+                }, 3000)
+                mediaRecorder.start();
+
+            })
+
+            mediaRecorder.ondataavailable = function (ev) {
+                chunks.push(ev.data)
+            }
+
+            mediaRecorder.onstop = (ev) => {
+                let blob = new Blob(chunks, { 'type': 'video/mp4' })
+                chunks = []
+                console.log(blob)
+                let videoURL = window.URL.createObjectURL(blob)
+                console.log("video ", videoURL)
+                convertToFormData(videoURL)
+                videoDisplay.src = videoURL
+            }
+
+        }).catch(function (err) {
+            console.log(err.name, err.message);
+        })
+
+
+    function convertToFormData(video) {
+        let formData = new FormData();
+        formData.append('file', video);
+        console.log(formData)
+    }
+
+    function sendVideo(video) {
+        axios.post('https://localhost:3000/sendVideo', {
+            name: "Marllon"
+        })
+    }
+
 }

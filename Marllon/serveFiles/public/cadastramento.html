@@ -21,16 +21,16 @@
                 <div class="video-wrap">
                     <video id="video" autoplay></video>
                     <h4>Quer voltar pra tela de Login? <a href="./index.html">Clique aqui!</a></h4>
-                    <button class="botaoCapture" id="snap">Cadastrar</button>
+                    <button class="botaoCapture" id="record">Cadastrar</button>
                     <span id="ErrorMsg"></span>
                 </div>
                 <div class="controller">
-                    <canvas id="canvas"></canvas>
-                    <button class="botaoLogin" id="snap">Confirme</button>
+                    <video id="videoDisplay" controls></video>
+                    <button class="botaoLogin" id="confirme">Confirme</button>
                     <img id="base64">
                 
 
-                    <didv class ="nome">
+                    <did class ="nome">
                         <label>Nome</label>
                         <input type="text" name="Nome" placeholder="Digite o teu nome">
                     
@@ -40,7 +40,7 @@
         </div>
     </div>
     <script src="https://unpkg.com/axios/dist/axios.min.js" defer></script>
-    <script src="./scripts/openCamera.js" defer></script>
+    <script src="./scripts/recordVideo.js" defer></script>
 </body>
 
 </html>
