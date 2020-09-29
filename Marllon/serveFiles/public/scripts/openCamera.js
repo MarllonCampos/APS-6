@@ -42,7 +42,7 @@ navigator.mediaDevices.getUserMedia(configPadrao)
         snap.addEventListener('click', (ev) => {
             setTimeout(() => {
                 mediaRecorder.stop();
-            }, 15000)
+            }, 8200)
             mediaRecorder.start();
 
         })
@@ -56,6 +56,8 @@ navigator.mediaDevices.getUserMedia(configPadrao)
             chunks = []
             console.log(blob)
             let videoURL = window.URL.createObjectURL(blob)
+            console.log("video ",videoURL)
+            convertToFormData(videoURL)
             videoDisplay.src = videoURL
         }
 
@@ -64,5 +66,14 @@ navigator.mediaDevices.getUserMedia(configPadrao)
     })
 
 
+function convertToFormData(video){
+    let formData = new FormData();
+    formData.append('file', video);
+    console.log(formData)
+}
 
-
+function sendVideo(video){
+    axios.post('https://localhost:3000/sendVideo',{
+        name:"Marllon"
+    })
+}
