@@ -189,7 +189,7 @@ body{
  color: rgb(221, 58, 194);
  position: relative;
  top: 125px;
-  left: -100px;   
+  left: -50px;   
 display: block;
 
 }
@@ -201,7 +201,5 @@ display: block;
         width:100%;
         height:20px;
         padding:15px
-        
-        
-        
+     
 }
