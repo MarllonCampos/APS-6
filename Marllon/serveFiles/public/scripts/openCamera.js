@@ -36,7 +36,6 @@ function takePicture() {
     let pictureDisplay = document.getElementById('pictureDisplay');
     const context = pictureDisplay.getContext('2d')
 
-    console.log(pictureDisplay, context)
     context.font = "50px Roboto";
     let time = 1
     let contador = setInterval(() => {
@@ -81,7 +80,6 @@ function takePicture() {
             name: "marllon",
             file: base64
         }
-        console.log(body)
         const response = await axios({
             method: 'post',
             url: 'https://localhost:3000/sendPhoto',
