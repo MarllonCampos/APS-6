@@ -23,9 +23,12 @@ app.get('/',(req,res)=>{
 
 app.post('/sendPhoto',(req,res)=>{
     console.log(req.body);
-    console.log(req.query);
-    console.log(req.params);
+    
+    res.json({ok:"sei la"})
+})
 
+app.post('/sendVideo',upload.single('file'),(req,res)=>{
+    console.log(req.file);
     res.json({ok:"sei la"})
 })
 
