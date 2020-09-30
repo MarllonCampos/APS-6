@@ -1,7 +1,8 @@
+
 let picture = document.getElementById('picture') || document.getElementById('record');
 const configPadrao = {
     video: {
-        width: 300 ,
+        width: 300,
         height: 300
     }
 }
@@ -30,7 +31,7 @@ navigator.mediaDevices.getUserMedia(configPadrao)
     })
 
 function takePicture() {
-    const {video: {width,height}} = configPadrao
+    const { video: { width, height } } = configPadrao
     const base64 = document.getElementById('base64')
     let pictureDisplay = document.getElementById('pictureDisplay');
     const context = pictureDisplay.getContext('2d')
@@ -63,11 +64,8 @@ function takePicture() {
         }, 500)
         const canvasImage = document.getElementById('pictureDisplay').toDataURL("image/png").replace("image/jpg", "image/octet-stream");
 
-        console.log(canvasImage)
+        sendPhoto(canvasImage)
     }, 3500)
-
-
-
 
 
     function _imageEncode(arrayBuffer) {
@@ -78,15 +76,22 @@ function takePicture() {
     }
 
 
-    async function getTouch() {
-        try {
-
-            const response = await axios.get('http://localhost:5500/images/touch.jpeg', { responseType: "arraybuffer" })
-            let image = _imageEncode(response.data);
-            base64.src = image
-        } catch (e) {
-            console.log(e);
+    async function sendPhoto(base64) {
+        body = {
+            name: "marllon",
+            file: base64
         }
+        console.log(body)
+        const response = await axios({
+            method: 'post',
+            url: 'https://localhost:3000/sendPhoto',
+            data: body
+        }).then(function (response) {
+            console.log(response);
+        }).catch(function (error) {
+            console.log(error);
+        });
+
     }
     // getTouch();
 
