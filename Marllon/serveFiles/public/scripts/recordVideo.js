@@ -50,10 +50,16 @@ navigator.mediaDevices.getUserMedia(configPadrao)
         mediaRecorder.onstop = (ev) => {
             let blob = new Blob(chunks, { 'type': 'video/mp4' })
             chunks = []
-            console.log(blob)
             let videoURL = window.URL.createObjectURL(blob)
             console.log("video ", videoURL)
             videoDisplay.src = videoURL
+            let f = new File([blob], "videoDoUsuario.mp4", {type: "video/mp4"})
+            console.log(f);
+            let fd = new FormData()
+            fd.append('file',f)
+            sendVideo(fd)
+            
+            
         }
 
     }).catch(function (err) {
@@ -61,5 +67,13 @@ navigator.mediaDevices.getUserMedia(configPadrao)
     })
 
 
-
+    async function sendVideo(fd){
+        const response = await axios({
+            url:'https://localhost:3000/sendVideo',
+            method:'POST',
+            data : fd
+        }).then(res => {
+            console.log(res);
+        }).catch(err => console.log(err))    
+    }
 
