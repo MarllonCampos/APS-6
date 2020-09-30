@@ -69,7 +69,7 @@ body{
 }
 .video-wrap .botaoCapture{
     width: 100px;
-    margin-top: 10px;
+    margin-top: 20px;
     background-color: #A9DEDA;
     border:  4px solid black;
     border-radius: 10px;
@@ -98,9 +98,10 @@ body{
     font-size: 20px;
     cursor: pointer;
     position:absolute;
-    top:460px;
-    left:930px;
+    top:468px;
+    left:890px;
    
+
    
 }
 .controller .botaoLogin:hover{
@@ -188,14 +189,15 @@ body{
     border-right: 4px solid black;
 }
 
-
-
 .nome>input{
     border-radius: 5px;
-    margin-top: 140px;
-       outline:100;
-        width:100%;
-        height:20px;
-        padding:15px
+    margin-top: 10px;
+   
+    width: 300px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding-left: 50px;
      
 }
