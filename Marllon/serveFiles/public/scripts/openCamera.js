@@ -1,5 +1,6 @@
 
-let picture = document.getElementById('picture') || document.getElementById('record');
+let picture = document.getElementById('picture');
+var logar = document.getElementById('login');
 const configPadrao = {
     video: {
         width: 300,
@@ -62,18 +63,13 @@ function takePicture() {
             pictureDisplay.style.transform = "scaleX(-1)";
         }, 500)
         const canvasImage = document.getElementById('pictureDisplay').toDataURL("image/png").replace("image/jpg", "image/octet-stream");
-
-        sendPhoto(canvasImage)
+        logar.style.transition = "opacity 5s"       
+        logar.style.opacity = "1.0"
+        logar.addEventListener('click',EntrarSistema)
+        function EntrarSistema() {
+            sendPhoto(canvasImage)
+        } 
     }, 3500)
-
-
-    function _imageEncode(arrayBuffer) {
-        let u8 = new Uint8Array(arrayBuffer)
-        let b64encoded = btoa([].reduce.call(new Uint8Array(arrayBuffer), function (p, c) { return p + String.fromCharCode(c) }, ''))
-        let mimetype = "image/jpeg"
-        return "data:" + mimetype + ";base64," + b64encoded
-    }
-
 
     async function sendPhoto(base64) {
         body = {

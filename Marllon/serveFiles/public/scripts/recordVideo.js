@@ -1,4 +1,6 @@
 let picture = document.getElementById('record');
+var eTexto = document.getElementById('EntradaTexto');
+var cadastro = document.getElementById('signup');
 const configPadrao = {
     video: {
         width: 300,
@@ -38,7 +40,7 @@ navigator.mediaDevices.getUserMedia(configPadrao)
         picture.addEventListener('click', (ev) => {
             setTimeout(() => {
                 mediaRecorder.stop();
-            }, 3000)
+            }, 11000)
             mediaRecorder.start();
 
         })
@@ -53,13 +55,25 @@ navigator.mediaDevices.getUserMedia(configPadrao)
             let videoURL = window.URL.createObjectURL(blob)
             console.log("video ", videoURL)
             videoDisplay.src = videoURL
-            let f = new File([blob], "videoDoUsuario.mp4", {type: "video/mp4"})
+            let f = new File([blob], "videoDoUsuario.mp4", { type: "video/mp4" })
             console.log(f);
             let fd = new FormData()
-            fd.append('file',f)
-            sendVideo(fd)
-            
-            
+            fd.append('file', f)
+            eTexto.style.transition = "opacity 5s"
+            cadastro.style.transition = "opacity 5s"
+            eTexto.style.opacity = "1.0"
+            cadastro.style.opacity = "1.0"
+            cadastro.addEventListener('click', cadastrarSistema)
+            function cadastrarSistema() {
+                var vNome
+                vNome = eTexto.value
+                if (vNome == null || vNome == "") {
+                    alert('Digite seu nome de usuario!')
+                }
+                else {
+                    sendVideo(fd)
+                }
+            }
         }
 
     }).catch(function (err) {
@@ -67,13 +81,13 @@ navigator.mediaDevices.getUserMedia(configPadrao)
     })
 
 
-    async function sendVideo(fd){
-        const response = await axios({
-            url:'https://localhost:3000/sendVideo',
-            method:'POST',
-            data : fd
-        }).then(res => {
-            console.log(res);
-        }).catch(err => console.log(err))    
-    }
+async function sendVideo(fd) {
+    const response = await axios({
+        url: 'https://localhost:3000/sendVideo',
+        method: 'POST',
+        data: fd
+    }).then(res => {
+        console.log(res);
+    }).catch(err => console.log(err))
+}
 
