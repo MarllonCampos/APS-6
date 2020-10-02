@@ -90,17 +90,15 @@ body{
     width:300px;
 
 }
-.controller .botaoLogin{
+.nome .botaoLogin{
     width: 100px;
+    margin-top: 20px;
+    margin-left: 100px;
     background-color: #A9DEDA;
     border:  4px solid black;
     border-radius: 10px;
     font-size: 20px;
     cursor: pointer;
-    position:absolute;
-    top:468px;
-    left:890px;
-   
 
    
 }
