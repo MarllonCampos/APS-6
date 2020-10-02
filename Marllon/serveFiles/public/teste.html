@@ -44,6 +44,9 @@ async function send(){
 	response = await axios({
 	url:"https://192.168.0.8:5000/cadastro",
 	method:"post",
+  httpsAgent: new https.Agent({  
+    rejectUnauthorized: false
+  }),
 	data:{"nome":"marllon","video":"Marllon.mp4"}
 	}).then(res => console.log(res)).catch(err => console.log(err))
 }
