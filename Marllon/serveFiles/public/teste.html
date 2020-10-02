@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acess Camera</title>
+    <link rel="stylesheet" href="./css/style2.css">
+<script src="https://unpkg.com/axios/dist/axios.min.js"> </script>
+
+</head>
+
+<body>
+    <div class="Fundo">
+        <div class="borda">
+            <h1>
+                Faça cadastro agora no novo reconhecimento facial!
+            </h1>
+            <div class="cameras">
+                <div class="video-wrap">
+                    <video id="video" autoplay></video>
+                    <h4>Quer voltar pra tela de Login? <a href="./index.html">Clique aqui!</a></h4>
+                    <button class="botaoCapture" id="record">Cadastrar</button>
+                    <span id="ErrorMsg"></span>
+                </div>
+                <div class="controller">
+                    <video id="videoDisplay" controls></video>
+                    <button class="botaoLogin" id="confirme">Confirme</button>
+                    <img id="base64">
+                
+
+                    <did class ="nome">
+                        <label>Nome</label>
+                        <input type="text" name="Nome" placeholder="Digite o teu nome">
+                    
+             </div>
+             </div>
+            </div>
+        </div>
+    </div>>
+    <script> 
+send()
+async function send(){
+	response = await axios({
+	url:"https://192.168.0.8:5000/cadastro",
+	method:"post",
+  httpsAgent: new https.Agent({  
+    rejectUnauthorized: false
+  }),
+	data:{"nome":"marllon","video":"Marllon.mp4"}
+	}).then(res => console.log(res)).catch(err => console.log(err))
+}
+	
+	</script>
+</body>
+
+</html>
