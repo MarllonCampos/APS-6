@@ -53,12 +53,8 @@ navigator.mediaDevices.getUserMedia(configPadrao)
             let blob = new Blob(chunks, { 'type': 'video/mp4' })
             chunks = []
             let videoURL = window.URL.createObjectURL(blob)
-            console.log("video ", videoURL)
             videoDisplay.src = videoURL
-            let f = new File([blob], "videoDoUsuario.mp4", { type: "video/mp4" })
-            console.log(f);
-            let fd = new FormData()
-            fd.append('file', f)
+          
             eTexto.style.transition = "opacity 5s"
             cadastro.style.transition = "opacity 5s"
             eTexto.style.opacity = "1.0"
@@ -71,6 +67,10 @@ navigator.mediaDevices.getUserMedia(configPadrao)
                     alert('Digite seu nome de usuario!')
                 }
                 else {
+                    let f = new File([blob], "vNome", { type: "video/mp4" })
+                    let fd = new FormData()
+                    fd.append('video', f)
+                    fd.append('nome',vNome)
                     sendVideo(fd)
                 }
             }
@@ -83,11 +83,11 @@ navigator.mediaDevices.getUserMedia(configPadrao)
 
 async function sendVideo(fd) {
     const response = await axios({
-        url: 'https://localhost:3000/sendVideo',
+        url: 'https://localhost:5000/cadastro',
         method: 'POST',
         data: fd
     }).then(res => {
-        console.log(res);
+        console.log(res.data);
     }).catch(err => console.log(err))
 }
 
