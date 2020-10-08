@@ -74,7 +74,7 @@ function takePicture() {
     async function sendPhoto(base64) {
         let imagem = base64.split(',')[1]
         imagem = new Blob([window.atob(imagem)],{type:'image/jpg'})
-        imagem = new File([imagem], "imagemUsuario.jpg", { type: "image/jpg" })
+        imagem = new File([imagem], "imagemUsuario.jpg", { type: "image/jpeg" })
         let formData = new FormData()
         formData.append('imagemUsuario',imagem)
         const response = await axios({
