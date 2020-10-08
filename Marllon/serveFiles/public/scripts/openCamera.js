@@ -3,8 +3,8 @@ let picture = document.getElementById('picture');
 var logar = document.getElementById('login');
 const configPadrao = {
     video: {
-        width: 300,
-        height: 300
+        width: 1920,
+        height: 1920
     }
 }
 
@@ -64,7 +64,7 @@ function takePicture() {
         }, 500)
         const canvasImage = document.getElementById('pictureDisplay').toDataURL
             ("image/png")
-        console.log(canvasImage)
+        
         logar.style.transition = "opacity 5s"
         logar.style.opacity = "1.0"
         logar.addEventListener('click', EntrarSistema)
@@ -84,9 +84,7 @@ function takePicture() {
         imagem = new File([imagem], "imagemUsuario.png", { type: "image/png" })
         let formData = new FormData()
         formData.append('imagemUsuario', imagem)
-        for(let i of formData){
-            console.log(i[0], i[1])
-        }
+        
         const response = await axios({
             method: 'post',
             url: 'https://localhost:5000/login',
