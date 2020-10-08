@@ -72,24 +72,14 @@ function takePicture() {
     }, 3500)
 
     async function sendPhoto(base64) {
-        body = {
-            name: "marllon",
-            file: base64
-        }
         const response = await axios({
             method: 'post',
-            url: 'https://localhost:3000/sendPhoto',
-            data: body
-        }).then(function (response) {
-            console.log(response);
-        }).catch(function (error) {
-            console.log(error);
-        });
+            url: 'https://localhost:5000/login',
+            data: base64
+        }).then(res => {
+            console.log(res.data);
+        }).catch(err => console.log(err))
 
     }
-    // getTouch();
-
-
-
 }
 
