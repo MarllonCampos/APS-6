@@ -63,22 +63,30 @@ function takePicture() {
             pictureDisplay.style.transform = "scaleX(-1)";
         }, 500)
         const canvasImage = document.getElementById('pictureDisplay').toDataURL
-        ("image/png")
+            ("image/png")
         console.log(canvasImage)
-        logar.style.transition = "opacity 5s"       
+        logar.style.transition = "opacity 5s"
         logar.style.opacity = "1.0"
-        logar.addEventListener('click',EntrarSistema)
+        logar.addEventListener('click', EntrarSistema)
         function EntrarSistema() {
             sendPhoto(canvasImage)
-        } 
+        }
     }, 3500)
 
     async function sendPhoto(base64) {
-        let imagem = base64.split(',')[1]
-        imagem = new Blob([window.atob(imagem)],{type:'image/png'})
+        let imagem = atob(base64.split(',')[1])
+        const convertImagem = new Array(imagem.length)
+        for(let i = 0; i<convertImagem.length; i++){
+            convertImagem[i] = imagem.charCodeAt(i)
+        }
+        imagem = new Uint8Array(convertImagem)
+        imagem = new Blob([imagem],{type:'image/png'})
         imagem = new File([imagem], "imagemUsuario.png", { type: "image/png" })
         let formData = new FormData()
-        formData.append('imagemUsuario',imagem)
+        formData.append('imagemUsuario', imagem)
+        for(let i of formData){
+            console.log(i[0], i[1])
+        }
         const response = await axios({
             method: 'post',
             url: 'https://localhost:5000/login',
