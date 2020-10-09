@@ -67,7 +67,7 @@ navigator.mediaDevices.getUserMedia(configPadrao)
                     alert('Digite seu nome de usuario!')
                 }
                 else {
-                    let f = new File([blob], "vNome", { type: "video/mp4" })
+                    let f = new File([blob], vNome+".mp4", { type: "video/mp4" })
                     let fd = new FormData()
                     fd.append('video', f)
                     fd.append('nome',vNome)

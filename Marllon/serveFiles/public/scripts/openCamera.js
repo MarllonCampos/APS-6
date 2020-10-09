@@ -3,8 +3,8 @@ let picture = document.getElementById('picture');
 var logar = document.getElementById('login');
 const configPadrao = {
     video: {
-        width: 300,
-        height: 300
+        width: 1920,
+        height: 1920
     }
 }
 
@@ -62,34 +62,37 @@ function takePicture() {
             pictureDisplay.style.transition = "all 0.4s"
             pictureDisplay.style.transform = "scaleX(-1)";
         }, 500)
-        const canvasImage = document.getElementById('pictureDisplay').toDataURL("image/png").replace("image/jpg", "image/octet-stream");
-        logar.style.transition = "opacity 5s"       
+        const canvasImage = document.getElementById('pictureDisplay').toDataURL
+            ("image/png")
+        
+        logar.style.transition = "opacity 5s"
         logar.style.opacity = "1.0"
-        logar.addEventListener('click',EntrarSistema)
+        logar.addEventListener('click', EntrarSistema)
         function EntrarSistema() {
             sendPhoto(canvasImage)
-        } 
+        }
     }, 3500)
 
     async function sendPhoto(base64) {
-        body = {
-            name: "marllon",
-            file: base64
+        let imagem = atob(base64.split(',')[1])
+        const convertImagem = new Array(imagem.length)
+        for(let i = 0; i<convertImagem.length; i++){
+            convertImagem[i] = imagem.charCodeAt(i)
         }
+        imagem = new Uint8Array(convertImagem)
+        imagem = new Blob([imagem],{type:'image/png'})
+        imagem = new File([imagem], "imagemUsuario.png", { type: "image/png" })
+        let formData = new FormData()
+        formData.append('imagemUsuario', imagem)
+        
         const response = await axios({
             method: 'post',
-            url: 'https://localhost:3000/sendPhoto',
-            data: body
-        }).then(function (response) {
-            console.log(response);
-        }).catch(function (error) {
-            console.log(error);
-        });
+            url: 'https://localhost:5000/login',
+            data: formData
+        }).then(res => {
+            console.log(res.data);
+        }).catch(err => console.log(err))
 
     }
-    // getTouch();
-
-
-
 }
 
