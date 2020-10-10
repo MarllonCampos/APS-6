@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acess Camera</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css">
+
+
+</head>
+
+<body>
+    <div class="Fundo">
+        <div class="borda">
+            <h1>
+                Faça login agora no novo reconhecimento facial!
+            </h1>
+            <div class="cameras">
+                <div class="video-wrap">
+                    <video id="video" autoplay></video>
+                    <h4>Não é cadastrado? <a href="./cadastramento.html">Cadastre-se aqui!</a></h4>
+                    <button class="botaoCapture" id="picture">Foto</button>
+                    <span id="ErrorMsg"></span>
+                </div>
+                <div class="controller">
+                    <canvas id="pictureDisplay" controls></canvas>
+                    <button class="botaoLogin" style="opacity: 0.0;" id="login">Login</button>
+                    <img id="base64">
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://unpkg.com/axios/dist/axios.min.js" defer></script>
+    <script src="./scripts/openCamera.js" defer></script>
+</body>
+
+</html>

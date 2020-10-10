@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acess Camera</title>
+    <link rel="stylesheet" href="./css/style2.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
+
+
+</head>
+
+<body>
+    <div class="Fundo">
+        <div class="borda">
+            <h1>
+                Faça cadastro agora no novo reconhecimento facial!
+            </h1>
+            <div class="cameras">
+                <div class="video-wrap">
+                    <video id="video" autoplay></video>
+                    <h4>Quer voltar pra tela de Login? <a href="./index.html">Clique aqui!</a></h4>
+                    <button class="botaoCapture" id="record">Cadastrar</button>
+                    <span id="ErrorMsg"></span>
+                </div>
+                <div class="controller">
+                    <video id="videoDisplay" controls></video>
+                    
+                    <img id="base64">
+                
+                
+                    <didv class ="nome">
+                   
+                     <input type="text" name="Nome" placeholder="                Digite o teu nome      ">
+                     <button class="botaoLogin" id="confirme">Confirme</button>
+                    
+             </div>
+             </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://unpkg.com/axios/dist/axios.min.js" defer></script>
+    <script src="./scripts/recordVideo.js" defer></script>
+</body>
+
+</html>

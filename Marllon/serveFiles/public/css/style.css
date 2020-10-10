@@ -1,0 +1,185 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Roboto, sans-serif;
+    font-weight: 400;
+}
+h1,h2,h3,h4,h5,h6{
+font-weight: bold;
+}
+
+html,body{
+    width:100%;
+    height:100%;
+}
+
+body{
+    background-color: #97C7C4;
+    padding-left: 5px;
+    height: 90%;
+}
+.Fundo{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+.Fundo .borda{
+    background-color: #485E5D;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+    border: 10px double black;
+    border-radius: 30px;
+}
+.Fundo .borda h1{
+    color: #D982DB;
+}
+.cameras{
+    background-color:#dcdcdc;
+    margin-top: 20px;
+    border-width: 10px;
+    border-style: double;
+    border-radius: 30px;
+    display: flex;
+    justify-content: space-between;
+    padding: 40px;
+    width: 860px;
+    box-shadow: 0px 6px 4px 0px rgba(0, 0, 0, 0.3);
+}
+.video-wrap{
+    display: flex;
+    flex-direction: column;
+}
+.video-wrap video{
+    border-width: 10px;
+    border-style: double;
+    border-radius: 30px;
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    height: 300px;
+    width:300px;
+}
+.video-wrap h4{
+    margin-top: 10px;
+}
+.video-wrap .botaoCapture{
+    width: 100px;
+    margin-top: 10px;
+    background-color: #A9DEDA;
+    border:  4px solid black;
+    border-radius: 10px;
+    font-size: 20px;
+    cursor: pointer;
+}
+.video-wrap .botaoCapture:hover{
+    box-shadow: 0px 6px 4px 0px rgba(0, 0, 0, 0.3);
+}
+.controller{
+    display: flex;
+    align-items: flex-end;
+    flex-direction: column;
+}
+.controller canvas{
+    transition: all 0.6s;
+    height: 300px;
+    width:300px;
+
+}
+.controller .botaoLogin{
+    width: 100px;
+    margin-top: 39px;
+    background-color: #A9DEDA;
+    border:  4px solid black;
+    border-radius: 10px;
+    font-size: 20px;
+    cursor: pointer;
+}
+.controller .botaoLogin:hover{
+    box-shadow: 0px 6px 4px 0px rgba(0, 0, 0, 0.3);
+}
+
+.fundopag3{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.fpagina3 {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 1000px;
+    height: 500px;
+    border:  4px solid black;
+    border-radius: 10px;
+    background-color: white;
+}
+.fpagina3 .nomeus{
+    padding-left: 10px;
+    padding-right: 10px;
+    width: 100%;
+    height: 50px;
+    margin-top: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border:  4px solid black;
+    border-radius: 10px;
+    background-color: #485E5D;
+    color: white;
+}
+.nomeus .logout{
+    width: 80;
+    height: 30px;
+    margin-top: 5px;
+    background-color: #A9DEDA;
+    color: black;
+    text-decoration: none;
+    border:  4px solid black;
+    border-radius: 10px;
+    font-size: 20px;
+    cursor: pointer;
+}
+.nomeus .logout:hover{
+    box-shadow: 0px 6px 4px 0px rgba(0, 0, 0, 0.3);
+}
+.informacoes{
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: 400px;
+    margin-top: 20px;
+    border:  4px solid black;
+    border-radius: 10px;
+    background-color: #dcdcdc;
+}
+.informacoes .infonomes{
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    border:  4px solid black;
+    border-radius: 10px;
+    background-color: #485E5D;
+}
+.informacoes .infonomes h4{
+    width: 215px;
+    height: 100%;
+    line-height: 40px;
+    text-align: center;
+    color: #D982DB;
+}
+.informacoes .infonomes h4:not(:last-child){
+    padding-right: 20px;
+    border-right: 4px solid black;
+}
