@@ -120,6 +120,8 @@ async function sendPhoto(foto) {
         data: foto
     }).then(res => {
         console.log(res.data);
+        window.location.replace('pagina3.html')
+        console.log(res.data)
     }).catch(err => console.log(err))
 
 }
