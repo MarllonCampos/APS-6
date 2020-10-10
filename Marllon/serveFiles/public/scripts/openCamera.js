@@ -9,6 +9,11 @@ const configPadrao = {
 
 const errorMsgElement = document.querySelector('#ErrorMsg')
 
+logar.addEventListener('click', EntrarSistema)
+
+var cliqueFoto
+var canvasImage
+
 navigator.mediaDevices.getUserMedia(configPadrao)
     .then(function (mediaStreamObj) {
         let video = document.querySelector('#video')
@@ -31,7 +36,7 @@ navigator.mediaDevices.getUserMedia(configPadrao)
     })
 
 function takePicture() {
-
+    cliqueFoto = true;
     const { video: { width, height } } = configPadrao
     const base64 = document.getElementById('base64')
     let pictureDisplay = document.getElementById('pictureDisplay');
@@ -61,55 +66,60 @@ function takePicture() {
             pictureDisplay.style.transition = "all 0.4s"
             pictureDisplay.style.transform = "scaleX(-1)";
         }, 500)
-        let canvasImage = document.getElementById('pictureDisplay').toDataURL
+        canvasImage = document.getElementById('pictureDisplay').toDataURL
             ("image/png")
-        
+
         logar.style.transition = "opacity 5s"
         logar.style.opacity = "1.0"
-        if(logar.getAttribute('listener') !== 'true'){
-            logar.addEventListener('click', EntrarSistema)
-            
-        }
 
-        function EntrarSistema() {
-            logar.setAttribute('listener','true')
-            const foto = convertBase64(canvasImage)
-            sendPhoto(foto)
-        }
+
+
     }, 3500)
 
+   
 
-    function convertBase64(base64){
+  
+}
 
-        let formData = new FormData()
-        for(let i of formData){
-            console.log(i[0],i[1])
-        }
-        let imagem = atob(base64.split(',')[1])
-        const convertImagem = new Array(imagem.length)
-        for(let i = 0; i<convertImagem.length; i++){
-            convertImagem[i] = imagem.charCodeAt(i)
-        }
-        imagem = new Uint8Array(convertImagem)
-        imagem = new Blob([imagem],{type:'image/png'})
-        imagem = new File([imagem], "imagemUsuario.png", { type: "image/png" })
-        formData.append('imagemUsuario', imagem)
-        for(let i of formData){
-            console.log(i[0],i[1])
-        }
-
-        return formData
-        
-    }
-    async function sendPhoto(foto) {
-        const response = await axios({
-            method: 'post',
-            url: 'https://localhost:5000/login',
-            data: foto
-        }).then(res => {
-            console.log(res.data);
-        }).catch(err => console.log(err))
-
+function EntrarSistema() {
+    if (cliqueFoto) {
+        const foto = convertBase64(canvasImage)
+        sendPhoto(foto)
     }
 }
 
+
+function convertBase64(base64) {
+
+    let formData = new FormData()
+    for (let i of formData) {
+        console.log(i[0], i[1])
+    }
+    let imagem = atob(base64.split(',')[1])
+    const convertImagem = new Array(imagem.length)
+    for (let i = 0; i < convertImagem.length; i++) {
+        convertImagem[i] = imagem.charCodeAt(i)
+    }
+    imagem = new Uint8Array(convertImagem)
+    imagem = new Blob([imagem], { type: 'image/png' })
+    imagem = new File([imagem], "imagemUsuario.png", { type: "image/png" })
+    formData.append('imagemUsuario', imagem)
+    for (let i of formData) {
+        console.log(i[0], i[1])
+    }
+
+    return formData
+
+}
+
+
+async function sendPhoto(foto) {
+    const response = await axios({
+        method: 'post',
+        url: 'https://localhost:5000/login',
+        data: foto
+    }).then(res => {
+        console.log(res.data);
+    }).catch(err => console.log(err))
+
+}
