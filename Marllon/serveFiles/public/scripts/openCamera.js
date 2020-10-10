@@ -116,7 +116,7 @@ function convertBase64(base64) {
 async function sendPhoto(foto) {
     const response = await axios({
         method: 'post',
-        url: 'https://localhost:5000/login',
+        url: 'https://201.74.114.180:3333/login',
         data: foto
     }).then(res => {
         console.log(res.data);
