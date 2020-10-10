@@ -1,4 +1,3 @@
-
 let picture = document.getElementById('picture');
 var logar = document.getElementById('login');
 const configPadrao = {
@@ -32,11 +31,11 @@ navigator.mediaDevices.getUserMedia(configPadrao)
     })
 
 function takePicture() {
+
     const { video: { width, height } } = configPadrao
     const base64 = document.getElementById('base64')
     let pictureDisplay = document.getElementById('pictureDisplay');
     const context = pictureDisplay.getContext('2d')
-
     context.font = "50px Roboto";
     let time = 1
     let contador = setInterval(() => {
@@ -62,18 +61,30 @@ function takePicture() {
             pictureDisplay.style.transition = "all 0.4s"
             pictureDisplay.style.transform = "scaleX(-1)";
         }, 500)
-        const canvasImage = document.getElementById('pictureDisplay').toDataURL
+        let canvasImage = document.getElementById('pictureDisplay').toDataURL
             ("image/png")
         
         logar.style.transition = "opacity 5s"
         logar.style.opacity = "1.0"
-        logar.addEventListener('click', EntrarSistema)
+        if(logar.getAttribute('listener') !== 'true'){
+            logar.addEventListener('click', EntrarSistema)
+            
+        }
+
         function EntrarSistema() {
-            sendPhoto(canvasImage)
+            logar.setAttribute('listener','true')
+            const foto = convertBase64(canvasImage)
+            sendPhoto(foto)
         }
     }, 3500)
 
-    async function sendPhoto(base64) {
+
+    function convertBase64(base64){
+
+        let formData = new FormData()
+        for(let i of formData){
+            console.log(i[0],i[1])
+        }
         let imagem = atob(base64.split(',')[1])
         const convertImagem = new Array(imagem.length)
         for(let i = 0; i<convertImagem.length; i++){
@@ -82,13 +93,19 @@ function takePicture() {
         imagem = new Uint8Array(convertImagem)
         imagem = new Blob([imagem],{type:'image/png'})
         imagem = new File([imagem], "imagemUsuario.png", { type: "image/png" })
-        let formData = new FormData()
         formData.append('imagemUsuario', imagem)
+        for(let i of formData){
+            console.log(i[0],i[1])
+        }
+
+        return formData
         
+    }
+    async function sendPhoto(foto) {
         const response = await axios({
             method: 'post',
             url: 'https://localhost:5000/login',
-            data: formData
+            data: foto
         }).then(res => {
             console.log(res.data);
         }).catch(err => console.log(err))
