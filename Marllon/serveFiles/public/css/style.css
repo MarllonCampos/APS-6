@@ -161,6 +161,7 @@ body{
     border:  4px solid black;
     border-radius: 10px;
     background-color: #dcdcdc;
+    overflow-y: scroll;
 }
 .informacoes .infonomes{
     width: 100%;
@@ -172,6 +173,39 @@ body{
     border-radius: 10px;
     background-color: #485E5D;
 }
+.informacoes .infonomes:last-child:not(:first-child){
+    border-radius: 0;
+    border-top:0;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    background: white;
+    color:black;
+}
+.informacoes .infonomes:last-child:not(:first-child) h4{
+    color:black;
+}
+.informacoes .infonomes:not(:last-child):not(:first-child){
+    border-radius: 0;
+    border-top: 0;
+    background: white;
+    color:black;
+}
+.informacoes .infonomes:not(:last-child):not(:first-child) h4{
+    color:black;
+}
+.informacoes .infonomes:not(:first-child):nth-child(even){
+    background: #eccef5;
+}
+
+
+.informacoes .infonomes:first-child{
+    border-radius: 0;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+
+
 .informacoes .infonomes h4{
     width: 215px;
     height: 100%;
