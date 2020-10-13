@@ -27,7 +27,8 @@ if (localStorage.getItem("conteudoAps")){
 
     })
 
-    
+    localStorage.setItem("conteudoAps","")
+    localStorage.setItem("nomeconteudoAps","")
 
 }else{
     alert('Você não esta logado, voltando para a pagina inicial!!')
