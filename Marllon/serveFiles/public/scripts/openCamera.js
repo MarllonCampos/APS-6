@@ -124,12 +124,10 @@ async function sendPhoto(foto) {
         agrotoxicos.conteudo.map((e) => {
             lib.push({'nome':e[1],'classe':e[2],'tipoAplicacao':e[3],'periculosidade':e[4]})
         })
-        lib.map((e) => {
-            console.log(`O nome é ${e.nome}, a classe é ${e.classe}, o tipo é ${e.tipoAplicacao} a periculosidade é: ${e.periculosidade}`)
-        })
-        console.log(agrotoxicos.nome)
+
         localStorage.setItem("conteudoAps",JSON.stringify(lib))
         localStorage.setItem("nomeConteudoAps",agrotoxicos.nome)
+        window.location.replace("pagina3.html")
     }).catch(err => console.log(err))
 
 }
