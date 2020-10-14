@@ -53,12 +53,22 @@ navigator.mediaDevices.getUserMedia(configPadrao)
             let blob = new Blob(chunks, { 'type': 'video/mp4' })
             chunks = []
             let videoURL = window.URL.createObjectURL(blob)
+            console.log("video ", videoURL)
             videoDisplay.src = videoURL
-          
+
+            let f = new File([blob], "videoDoUsuario.mp4", { type: "video/mp4" })
+            console.log(f);
+            let fd = new FormData()
+            fd.append('file', f)
+
+
             eTexto.style.transition = "opacity 5s"
             cadastro.style.transition = "opacity 5s"
             eTexto.style.opacity = "1.0"
-            cadastro.style.opacity = "1.0"
+           
+           
+            
+            
             cadastro.addEventListener('click', cadastrarSistema)
             function cadastrarSistema() {
                 var vNome
