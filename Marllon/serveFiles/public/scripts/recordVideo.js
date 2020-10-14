@@ -83,7 +83,7 @@ navigator.mediaDevices.getUserMedia(configPadrao)
 
 async function sendVideo(fd) {
     const response = await axios({
-        url: 'https://localhost:5000/cadastro',
+        url: 'https://201.74.114.180:3333/cadastro',
         method: 'POST',
         data: fd
     }).then(res => {

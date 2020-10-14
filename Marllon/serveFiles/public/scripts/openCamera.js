@@ -119,9 +119,15 @@ async function sendPhoto(foto) {
         url: 'https://201.74.114.180:3333/login',
         data: foto
     }).then(res => {
-        console.log(res.data);
-        window.location.replace('pagina3.html')
-        console.log(res.data)
+        const agrotoxicos = res.data;
+        let lib = []
+        agrotoxicos.conteudo.map((e) => {
+            lib.push({'nome':e[1],'classe':e[2],'tipoAplicacao':e[3],'periculosidade':e[4]})
+        })
+
+        localStorage.setItem("conteudoAps",JSON.stringify(lib))
+        localStorage.setItem("nomeConteudoAps",agrotoxicos.nome)
+        window.location.replace("pagina3.html")
     }).catch(err => console.log(err))
 
 }
