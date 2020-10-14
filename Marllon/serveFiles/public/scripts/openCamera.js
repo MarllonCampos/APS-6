@@ -1,14 +1,18 @@
-
 let picture = document.getElementById('picture');
 var logar = document.getElementById('login');
 const configPadrao = {
     video: {
-        width: 300,
-        height: 300
+        width: 1920,
+        height: 1920
     }
 }
 
 const errorMsgElement = document.querySelector('#ErrorMsg')
+
+logar.addEventListener('click', EntrarSistema)
+
+var cliqueFoto
+var canvasImage
 
 navigator.mediaDevices.getUserMedia(configPadrao)
     .then(function (mediaStreamObj) {
@@ -32,11 +36,11 @@ navigator.mediaDevices.getUserMedia(configPadrao)
     })
 
 function takePicture() {
+    cliqueFoto = true;
     const { video: { width, height } } = configPadrao
     const base64 = document.getElementById('base64')
     let pictureDisplay = document.getElementById('pictureDisplay');
     const context = pictureDisplay.getContext('2d')
-
     context.font = "50px Roboto";
     let time = 1
     let contador = setInterval(() => {
@@ -62,34 +66,68 @@ function takePicture() {
             pictureDisplay.style.transition = "all 0.4s"
             pictureDisplay.style.transform = "scaleX(-1)";
         }, 500)
-        const canvasImage = document.getElementById('pictureDisplay').toDataURL("image/png").replace("image/jpg", "image/octet-stream");
-        logar.style.transition = "opacity 5s"       
+        canvasImage = document.getElementById('pictureDisplay').toDataURL
+            ("image/png")
+
+        logar.style.transition = "opacity 5s"
         logar.style.opacity = "1.0"
-        logar.addEventListener('click',EntrarSistema)
-        function EntrarSistema() {
-            sendPhoto(canvasImage)
-        } 
+
+
+
     }, 3500)
 
-    async function sendPhoto(base64) {
-        body = {
-            name: "marllon",
-            file: base64
-        }
-        const response = await axios({
-            method: 'post',
-            url: 'https://localhost:3000/sendPhoto',
-            data: body
-        }).then(function (response) {
-            console.log(response);
-        }).catch(function (error) {
-            console.log(error);
-        });
+   
 
+  
+}
+
+function EntrarSistema() {
+    if (cliqueFoto) {
+        const foto = convertBase64(canvasImage)
+        sendPhoto(foto)
     }
-    // getTouch();
+}
 
 
+function convertBase64(base64) {
+
+    let formData = new FormData()
+    for (let i of formData) {
+        console.log(i[0], i[1])
+    }
+    let imagem = atob(base64.split(',')[1])
+    const convertImagem = new Array(imagem.length)
+    for (let i = 0; i < convertImagem.length; i++) {
+        convertImagem[i] = imagem.charCodeAt(i)
+    }
+    imagem = new Uint8Array(convertImagem)
+    imagem = new Blob([imagem], { type: 'image/png' })
+    imagem = new File([imagem], "imagemUsuario.png", { type: "image/png" })
+    formData.append('imagemUsuario', imagem)
+    for (let i of formData) {
+        console.log(i[0], i[1])
+    }
+
+    return formData
 
 }
 
+
+async function sendPhoto(foto) {
+    const response = await axios({
+        method: 'post',
+        url: 'https://201.74.114.180:3333/login',
+        data: foto
+    }).then(res => {
+        const agrotoxicos = res.data;
+        let lib = []
+        agrotoxicos.conteudo.map((e) => {
+            lib.push({'nome':e[1],'classe':e[2],'tipoAplicacao':e[3],'periculosidade':e[4]})
+        })
+
+        localStorage.setItem("conteudoAps",JSON.stringify(lib))
+        localStorage.setItem("nomeConteudoAps",agrotoxicos.nome)
+        window.location.replace("pagina3.html")
+    }).catch(err => console.log(err))
+
+}
