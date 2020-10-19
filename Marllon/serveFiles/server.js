@@ -4,7 +4,7 @@ const https = require('https')
 const fs = require('fs')
 const morgan = require('morgan');
 const path = require('path')
-
+const PORT = 5500;
 const app = express();
 app.use(cors())
 app.use(morgan('dev'))
@@ -20,6 +20,6 @@ certServer = path.resolve(__dirname,'certificates','server.cert')
 https.createServer({
     key:fs.readFileSync(keyServer),
     cert:fs.readFileSync(certServer)
-}, app).listen(5500, () => {
-    console.log('Server Running !!')
+}, app).listen(PORT, () => {
+    console.log(`Server Running on port ${PORT}!!\n\n\n\n\n\n`)
 })

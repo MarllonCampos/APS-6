@@ -119,7 +119,10 @@ async function sendPhoto(foto) {
         url: 'https://201.74.114.180:3333/login',
         data: foto
     }).then(res => {
-        const agrotoxicos = res.data;
+        if(res.data.erro){
+            return alert(`ERRO:${res.data.erro}`)
+        }
+        const agrotoxicos= res.data;
         let lib = []
         agrotoxicos.conteudo.map((e) => {
             lib.push({'nome':e[1],'classe':e[2],'tipoAplicacao':e[3],'periculosidade':e[4]})
@@ -131,3 +134,4 @@ async function sendPhoto(foto) {
     }).catch(err => console.log(err))
 
 }
+
