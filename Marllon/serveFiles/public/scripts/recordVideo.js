@@ -75,6 +75,7 @@ navigator.mediaDevices.getUserMedia(configPadrao)
             
             cadastro.addEventListener('click', cadastrarSistema)
             function cadastrarSistema() {
+                cadastro.disabled = true
                 var vNome
                 vNome = eTexto.value
                 if (vNome == null || vNome == "") {
@@ -101,6 +102,7 @@ async function sendVideo(fd) {
         method: 'POST',
         data: fd
     }).then(res => {
+        cadastro.disabled = false
         console.log(res.data);
     }).catch(err => console.log(err))
 }
