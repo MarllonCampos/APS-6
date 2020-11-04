@@ -1,4 +1,3 @@
-let picture = document.getElementById('record');
 var eTexto = document.getElementById('EntradaTexto');
 var cadastro = document.getElementById('signup');
 const configPadrao = {
@@ -38,7 +37,10 @@ navigator.mediaDevices.getUserMedia(configPadrao)
 
 
         picture.addEventListener('click', (ev) => {
+            picture.disabled = true
+            picture.classList.add('flash')
             setTimeout(() => {
+                picture.classList.remove('flash')
                 mediaRecorder.stop();
             }, 11000)
             mediaRecorder.start();
@@ -55,16 +57,18 @@ navigator.mediaDevices.getUserMedia(configPadrao)
             let videoURL = window.URL.createObjectURL(blob)
             console.log("video ", videoURL)
             videoDisplay.src = videoURL
-
+            
             let f = new File([blob], "videoDoUsuario.mp4", { type: "video/mp4" })
             console.log(f);
             let fd = new FormData()
             fd.append('file', f)
-
-
+            
+            
             eTexto.style.transition = "opacity 5s"
             cadastro.style.transition = "opacity 5s"
             eTexto.style.opacity = "1.0"
+            cadastro.style.opacity = "1.0"
+            picture.disabled = false
            
            
             
