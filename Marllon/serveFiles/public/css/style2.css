@@ -16,8 +16,8 @@ html,body{
 
 body{
     background-color: #97C7C4;
-    padding-left: 5px;
-    height: 90%;
+    padding: 5px;
+
 }
 .Fundo{
     display: flex;
@@ -36,10 +36,11 @@ body{
     border: 10px double black;
     border-radius: 30px;
 }
-.Fundo .borda h1{
+
+.borda h1{
     color: #D982DB;
 }
-.cameras{
+.borda .cameras{
     background-color:#dcdcdc;
     margin-top: 20px;
     border-width: 10px;
@@ -51,7 +52,7 @@ body{
     width: 860px;
     box-shadow: 0px 6px 4px 0px rgba(0, 0, 0, 0.3);
 }
-.video-wrap{
+.cameras .video-wrap{
     display: flex;
     flex-direction: column;
 }
@@ -75,29 +76,12 @@ body{
     border-radius: 10px;
     font-size: 20px;
     cursor: pointer;
-    color: white;
+    color: #343837;
 }
-
-.flash{
-    animation-name: flash;
-    animation-duration: 1s;
-    animation-iteration-count: infinite;
-
-}
-  
-@keyframes flash{
-   
-    50%{
-        background: #A9DEDA;
-    }
-    100%{
-        background: #f30909;
-    }
-        
-            }
 .video-wrap .botaoCapture:hover{
     box-shadow: 0px 6px 4px 0px rgba(0, 0, 0, 0.3);
 }
+
 .controller{
     display: flex;
     align-items: flex-end;
@@ -107,21 +91,24 @@ body{
     transition: all 0.6s;
     height: 300px;
     width:300px;
-
+    border-radius: 30px;
+}
+.nome {
+    width:100%;
+    display:flex;
+    flex-direction: column;
+    align-items: flex-end;
 }
 .nome .botaoLogin{
     width: 100px;
-    margin-top: 20px;
-    margin-left: 100px;
+    margin-top: 12px;
     background-color: #A9DEDA;
     border:  4px solid black;
     border-radius: 10px;
     font-size: 20px;
     cursor: pointer;
-
-   
 }
-.controller .botaoLogin:hover{
+.nome .botaoLogin:hover{
     box-shadow: 0px 6px 4px 0px rgba(0, 0, 0, 0.3);
 }
 
@@ -132,7 +119,7 @@ body{
     align-items: center;
     justify-content: center;
 }
-.fpagina3 {
+.fundopag3 .fpagina3 {
     padding: 10px;
     display: flex;
     align-items: center;
@@ -172,7 +159,7 @@ body{
 .nomeus .logout:hover{
     box-shadow: 0px 6px 4px 0px rgba(0, 0, 0, 0.3);
 }
-.informacoes{
+.fundopag3 .informacoes{
     padding: 10px;
     display: flex;
     align-items: center;
@@ -194,7 +181,7 @@ body{
     border-radius: 10px;
     background-color: #485E5D;
 }
-.informacoes .infonomes h4{
+.infonomes h4{
     width: 215px;
     height: 100%;
     line-height: 40px;
@@ -206,15 +193,65 @@ body{
     border-right: 4px solid black;
 }
 
-.nome>input{
+.nome input{
     border-radius: 5px;
     margin-top: 10px;
    
     width: 300px;
     height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    padding-left: 50px;
-     
+
+    padding-left: 18px;     
 }
+
+/* Animações */
+.flash{
+    animation-name: flash;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+}
+  
+@keyframes flash{
+    50%{
+        background: #A9DEDA;
+        color:#fff;
+    }
+    100%{
+        background: #f30909;
+        color:#fff;
+    }
+    
+    0%{
+        background: #f3090977 ;
+        color:#fff;
+    }
+        
+}
+
+
+/* @media (max-width:924px){
+    body{
+        height:100%;
+        background-color:red;
+        padding:0 10px;
+    }
+    .Fundo{
+        width:100%;
+        height:auto;
+    }
+
+    .borda{
+        width: 100%;
+    }
+
+    .cameras{
+        height:100%;
+        width: 100%;
+        flex-direction:column;
+        align-items: center;
+    }
+
+    .cameras .controller{
+        margin-top:40px;
+        overflow-y:scroll;
+    }
+} */

@@ -75,13 +75,13 @@ navigator.mediaDevices.getUserMedia(configPadrao)
             
             cadastro.addEventListener('click', cadastrarSistema)
             function cadastrarSistema() {
-                cadastro.disabled = true
-                var vNome
-                vNome = eTexto.value
+                const vNome = eTexto.value.trim();
                 if (vNome == null || vNome == "") {
                     alert('Digite seu nome de usuario!')
                 }
                 else {
+                    cadastro.disabled = true;
+                    cadastro.style.opacity = '0.5';
                     let f = new File([blob], vNome+".mp4", { type: "video/mp4" })
                     let fd = new FormData()
                     fd.append('video', f)
@@ -103,6 +103,8 @@ async function sendVideo(fd) {
         data: fd
     }).then(res => {
         cadastro.disabled = false
+        cadastro.style.opacity = '1'
+        eTexto.value = ""
         console.log(res.data);
     }).catch(err => console.log(err))
 }
