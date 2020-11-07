@@ -31,7 +31,6 @@ navigator.mediaDevices.getUserMedia(configPadrao)
 
         let picture = document.getElementById('record');
         let videoDisplay = document.getElementById('videoDisplay');
-        console.log(videoDisplay);
         let mediaRecorder = new MediaRecorder(mediaStreamObj);
         let chunks = [];
 
@@ -42,7 +41,7 @@ navigator.mediaDevices.getUserMedia(configPadrao)
             setTimeout(() => {
                 picture.classList.remove('flash')
                 mediaRecorder.stop();
-            }, 11000)
+            }, 6000)
             mediaRecorder.start();
 
         })
@@ -55,14 +54,7 @@ navigator.mediaDevices.getUserMedia(configPadrao)
             let blob = new Blob(chunks, { 'type': 'video/mp4' })
             chunks = []
             let videoURL = window.URL.createObjectURL(blob)
-            console.log("video ", videoURL)
             videoDisplay.src = videoURL
-            
-            let f = new File([blob], "videoDoUsuario.mp4", { type: "video/mp4" })
-            console.log(f);
-            let fd = new FormData()
-            fd.append('file', f)
-            
             
             eTexto.style.transition = "opacity 5s"
             cadastro.style.transition = "opacity 5s"
@@ -97,15 +89,34 @@ navigator.mediaDevices.getUserMedia(configPadrao)
 
 
 async function sendVideo(fd) {
+    const loadingEl = document.querySelector('#tela-carregamento')
+    const loadingTextEl = document.querySelector('#loading-message')
+    const erroTextEl = document.querySelector('#erro-message')
+    loadingEl.style.display = 'flex'
+    loadingTextEl.style.display='initial';
+    erroTextEl.style.display = 'none';
+    erroTextEl.innerText = '';
     const response = await axios({
         url: 'https://201.74.114.180:3333/cadastro',
         method: 'POST',
         data: fd
-    }).then(res => {
-        cadastro.disabled = false
+    }).then(response => {
         cadastro.style.opacity = '1'
-        eTexto.value = ""
-        console.log(res.data);
+        cadastro.disabled = false
+        if (response.data.erro){
+            eTexto.value = "";
+            loadingTextEl.style.display='none';
+            erroTextEl.style.display = 'initial';
+            erroTextEl.innerText = response.data.erro
+            setTimeout(() => {
+                loadingEl.style.display = 'none'
+            },5000)
+        }else{
+            loadingTextEl.innerText = `${response.data.status} - ID:${response.data.id}`
+            setTimeout(() => {
+                loadingEl.style.display = 'none'
+            },5000)
+        }
     }).catch(err => console.log(err))
 }
 

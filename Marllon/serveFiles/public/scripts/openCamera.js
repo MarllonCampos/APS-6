@@ -76,13 +76,15 @@ function takePicture() {
 
     }, 3500)
 
-   
 
-  
+
+
 }
 
 function EntrarSistema() {
     if (cliqueFoto) {
+        logar.disabled = true
+        logar.style.opacity = '0.5'
         const foto = convertBase64(canvasImage)
         sendPhoto(foto)
     }
@@ -92,9 +94,6 @@ function EntrarSistema() {
 function convertBase64(base64) {
 
     let formData = new FormData()
-    for (let i of formData) {
-        console.log(i[0], i[1])
-    }
     let imagem = atob(base64.split(',')[1])
     const convertImagem = new Array(imagem.length)
     for (let i = 0; i < convertImagem.length; i++) {
@@ -104,9 +103,6 @@ function convertBase64(base64) {
     imagem = new Blob([imagem], { type: 'image/png' })
     imagem = new File([imagem], "imagemUsuario.png", { type: "image/png" })
     formData.append('imagemUsuario', imagem)
-    for (let i of formData) {
-        console.log(i[0], i[1])
-    }
 
     return formData
 
@@ -114,24 +110,54 @@ function convertBase64(base64) {
 
 
 async function sendPhoto(foto) {
+    const loadingEl = document.querySelector('#tela-carregamento')
+    const loadingTextEl = document.querySelector('#loading-message')
+    const erroTextEl = document.querySelector('#erro-message')
+    loadingEl.style.display = 'flex'
+    loadingTextEl.style.display = 'initial';
+    erroTextEl.style.display = 'none';
+    erroTextEl.innerText = '';
     const response = await axios({
         method: 'post',
         url: 'https://201.74.114.180:3333/login',
         data: foto
-    }).then(res => {
-        if(res.data.erro){
-            return alert(`ERRO:${res.data.erro}`)
-        }
-        const agrotoxicos= res.data;
-        let lib = []
-        agrotoxicos.conteudo.map((e) => {
-            lib.push({'nome':e[1],'classe':e[2],'tipoAplicacao':e[3],'periculosidade':e[4]})
-        })
+    }).then(response => {
+        logar.style.opacity = '1'
+        logar.disabled = false
+        if (response.data.erro) {
+            loadingTextEl.style.display = 'none';
+            erroTextEl.style.display = 'initial';
+            erroTextEl.innerText = response.data.erro
+            setTimeout(() => {
+                loadingEl.style.display = 'none'
+            }, 5000)
+        } else {
+            const agrotoxicos = response.data;
+            const nomeUsuario = agrotoxicos.nome
+            let lib = []
 
-        localStorage.setItem("conteudoAps",JSON.stringify(lib))
-        localStorage.setItem("nomeConteudoAps",agrotoxicos.nome)
-        window.location.replace("pagina3.html")
-    }).catch(err => console.log(err))
+            loadingTextEl.innerText = `Ola ${nomeUsuario} você foi reconhecido e será logado`
+            agrotoxicos.conteudo.map((e) => {
+                lib.push({ 'nome': e[1], 'classe': e[2], 'tipoAplicacao': e[3], 'periculosidade': e[4] })
+            })
+            localStorage.setItem("conteudoAps", JSON.stringify(lib))
+            localStorage.setItem("nomeConteudoAps", agrotoxicos.nome)
+            setTimeout(() => {
+                loadingEl.style.display = 'none'
+                window.location.replace("pagina3.html")
+            }, 5000)
+        }
+
+    }).catch(err => {
+        loadingTextEl.style.display = 'none';
+        erroTextEl.style.display = 'initial';
+        console.log(err)
+        erroTextEl.innerText = err
+        setTimeout(() => {
+            loadingEl.style.display = 'none'
+        }, 5000)
+
+    })
 
 }
 
