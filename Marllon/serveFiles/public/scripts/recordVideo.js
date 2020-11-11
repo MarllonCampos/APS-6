@@ -81,7 +81,7 @@ navigator.mediaDevices.getUserMedia(configPadrao)
     })
 
 const cadastrarSistema = (blob) => {
-    const vNome = eTexto.value.trim();
+    const vNome = eTexto.value.trim().replace(' ','-');
     if (vNome == null || vNome == "") {
         alert('Digite seu nome de usuario!')
     }

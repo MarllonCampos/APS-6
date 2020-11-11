@@ -133,7 +133,7 @@ async function sendPhoto(foto) {
             }, 5000)
         } else {
             const agrotoxicos = response.data;
-            const nomeUsuario = agrotoxicos.nome
+            const nomeUsuario = agrotoxicos.nome.replace('-',' ')
             let lib = []
 
             loadingTextEl.innerText = `Ola ${nomeUsuario} você foi reconhecido e será logado`

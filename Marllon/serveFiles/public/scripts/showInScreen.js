@@ -3,7 +3,7 @@ if (localStorage.getItem("conteudoAps")){
     const informacoes = document.querySelector('.informacoes')
     conteudoBanco = JSON.parse(localStorage.getItem("conteudoAps"))
     nomeBanco = localStorage.getItem("nomeConteudoAps")
-    nomeUsuario.innerText = nomeBanco
+    nomeUsuario.innerText = nomeBanco.replace('-',' ')
     
     conteudoBanco.map(e => {
         const divEl = document.createElement('div')
