@@ -6,6 +6,12 @@ const configPadrao = {
         height: 300
     }
 }
+
+var blob = new Blob
+cadastro.addEventListener('click', () =>  {cadastrarSistema(blob)})
+
+
+
 if (navigator.mediaDevices === undefined) {// Para navegadores mais antigos
 } else {
     navigator.mediaDevices.enumerateDevices() // Para novos navegadores
@@ -36,6 +42,7 @@ navigator.mediaDevices.getUserMedia(configPadrao)
 
 
         picture.addEventListener('click', (ev) => {
+            cadastro.removeEventListener('click', cadastrarSistema, false);
             picture.disabled = true
             picture.classList.add('flash')
             setTimeout(() => {
@@ -51,41 +58,43 @@ navigator.mediaDevices.getUserMedia(configPadrao)
         }
 
         mediaRecorder.onstop = (ev) => {
-            let blob = new Blob(chunks, { 'type': 'video/mp4' })
+            blob = new Blob(chunks, { 'type': 'video/mp4' })
             chunks = []
             let videoURL = window.URL.createObjectURL(blob)
             videoDisplay.src = videoURL
-            
+
             eTexto.style.transition = "opacity 5s"
             cadastro.style.transition = "opacity 5s"
             eTexto.style.opacity = "1.0"
             cadastro.style.opacity = "1.0"
             picture.disabled = false
-           
-           
+
+
+
             
-            
-            cadastro.addEventListener('click', cadastrarSistema)
-            function cadastrarSistema() {
-                const vNome = eTexto.value.trim();
-                if (vNome == null || vNome == "") {
-                    alert('Digite seu nome de usuario!')
-                }
-                else {
-                    cadastro.disabled = true;
-                    cadastro.style.opacity = '0.5';
-                    let f = new File([blob], vNome+".mp4", { type: "video/mp4" })
-                    let fd = new FormData()
-                    fd.append('video', f)
-                    fd.append('nome',vNome)
-                    sendVideo(fd)
-                }
-            }
+
+
         }
 
     }).catch(function (err) {
         console.log(err.name, err.message);
     })
+
+const cadastrarSistema = (blob) => {
+    const vNome = eTexto.value.trim();
+    if (vNome == null || vNome == "") {
+        alert('Digite seu nome de usuario!')
+    }
+    else {
+        cadastro.disabled = true;
+        cadastro.style.opacity = '0.5';
+        let f = new File([blob], vNome + ".mp4", { type: "video/mp4" })
+        let fd = new FormData()
+        fd.append('video', f)
+        fd.append('nome', vNome)
+        sendVideo(fd)
+    }
+}
 
 
 async function sendVideo(fd) {
@@ -93,7 +102,7 @@ async function sendVideo(fd) {
     const loadingTextEl = document.querySelector('#loading-message')
     const erroTextEl = document.querySelector('#erro-message')
     loadingEl.style.display = 'flex'
-    loadingTextEl.style.display='initial';
+    loadingTextEl.style.display = 'initial';
     erroTextEl.style.display = 'none';
     erroTextEl.innerText = '';
     const response = await axios({
@@ -103,19 +112,19 @@ async function sendVideo(fd) {
     }).then(response => {
         cadastro.style.opacity = '1'
         cadastro.disabled = false
-        if (response.data.erro){
+        if (response.data.erro) {
             eTexto.value = "";
-            loadingTextEl.style.display='none';
+            loadingTextEl.style.display = 'none';
             erroTextEl.style.display = 'initial';
             erroTextEl.innerText = response.data.erro
             setTimeout(() => {
                 loadingEl.style.display = 'none'
-            },5000)
-        }else{
+            }, 5000)
+        } else {
             loadingTextEl.innerText = `${response.data.status} - ID:${response.data.id}`
             setTimeout(() => {
                 loadingEl.style.display = 'none'
-            },5000)
+            }, 5000)
         }
     }).catch(err => console.log(err))
 }
